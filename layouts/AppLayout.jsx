@@ -1,12 +1,12 @@
 import {
   AppBar,
   Box,
-  Button,
   IconButton,
   Toolbar,
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import AccountMenu from "../components/AccountMenu"
 export default function AppLayout({ children }) {
   return (
     <Box>
@@ -25,6 +25,8 @@ export default function AppLayout({ children }) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Plants
           </Typography>
+
+          <AccountMenu />
         </Toolbar>
       </AppBar>
       {/* navbar end  */}
