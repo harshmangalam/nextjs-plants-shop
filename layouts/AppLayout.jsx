@@ -17,6 +17,7 @@ import AccountMenu from "../components/AccountMenu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import YardIcon from "@mui/icons-material/Yard";
+import Link from "next/link";
 export default function AppLayout({ children }) {
   return (
     <Box>
@@ -26,16 +27,18 @@ export default function AppLayout({ children }) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Plants
           </Typography>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="cart"
-          >
-            <Badge badgeContent={4} color="secondary">
-              <ShoppingCartIcon />
-            </Badge>
-          </IconButton>
+          <Link passHref href={"/cart"}>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="cart"
+            >
+              <Badge badgeContent={4} color="secondary">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
+          </Link>
           <AccountMenu />
         </Toolbar>
       </AppBar>
@@ -46,11 +49,7 @@ export default function AppLayout({ children }) {
       </Box>
 
       {/* footer  */}
-      <Paper
-        component={"footer"}
-        elevation={0}
-      
-      >
+      <Paper component={"footer"} elevation={0}>
         <Container>
           <Stack
             spacing={1}
