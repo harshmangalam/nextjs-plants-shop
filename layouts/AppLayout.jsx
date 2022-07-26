@@ -49,7 +49,7 @@ export default function AppLayout({ children }) {
       <Paper
         component={"footer"}
         elevation={0}
-        sx={{ position: "absolute", bottom: 0, left: 0, right: 0, paddingY: 2 }}
+      
       >
         <Container>
           <Stack
