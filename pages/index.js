@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -47,22 +48,24 @@ export default function Home() {
         {[...new Array(10)].map((plant) => (
           <Grid item md={3}>
             <Card sx={{ maxWidth: 345 }}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  image="https://cdn.shopify.com/s/files/1/0047/9730/0847/products/nurserylive-magical-aloe-vera-plant_c3575d29-9805-40e8-88b5-472cc9dca88f.jpg?v=1634223557"
-                  alt="green iguana"
-                />
-                <CardContent>
-                  <Stack direction={"row"} spacing={1} alignItems="center">
-                    <CurrencyRupeeIcon fontSize="medium" />
-                    <Typography variant="h5">399</Typography>
-                  </Stack>
-                  <Typography variant="subtitle1">
-                    Peace Lily, Spathiphyllum - Plant
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
+              <Link href={"/123"} passHref>
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    image="https://cdn.shopify.com/s/files/1/0047/9730/0847/products/nurserylive-magical-aloe-vera-plant_c3575d29-9805-40e8-88b5-472cc9dca88f.jpg?v=1634223557"
+                    alt="green iguana"
+                  />
+                  <CardContent>
+                    <Stack direction={"row"} spacing={1} alignItems="center">
+                      <CurrencyRupeeIcon fontSize="medium" />
+                      <Typography variant="h5">399</Typography>
+                    </Stack>
+                    <Typography variant="subtitle1">
+                      Peace Lily, Spathiphyllum - Plant
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Link>
               <CardActions>
                 <Stack spacing={2} width="100%">
                   <Stack direction="row" spacing={1}>
@@ -82,12 +85,7 @@ export default function Home() {
                     <Typography variant="caption">44 reviews</Typography>
                   </Stack>
 
-                  <Button
-                    fullWidth
-                    size="small"
-                    color="primary"
-                    variant="contained"
-                  >
+                  <Button fullWidth color="primary" variant="contained">
                     Add to cart
                   </Button>
                 </Stack>
