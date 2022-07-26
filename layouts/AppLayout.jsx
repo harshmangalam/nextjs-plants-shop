@@ -27,19 +27,21 @@ export default function AppLayout({ children }) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Plants
           </Typography>
-          <Link passHref href={"/cart"}>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="cart"
-            >
-              <Badge badgeContent={4} color="secondary">
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
-          </Link>
-          <AccountMenu />
+          <Stack direction="row" spacing={2}>
+            <Link passHref href={"/cart"}>
+              <IconButton
+                size="small"
+                edge="start"
+                color="inherit"
+                aria-label="cart"
+              >
+                <Badge badgeContent={4} color="secondary">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            </Link>
+            <AccountMenu />
+          </Stack>
         </Toolbar>
       </AppBar>
       {/* navbar end  */}
