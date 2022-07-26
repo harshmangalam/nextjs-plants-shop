@@ -41,7 +41,10 @@ export default function AppLayout({ children }) {
       </AppBar>
       {/* navbar end  */}
       {/* main  */}
-      {children}
+      <Box component={"main"} py={4}>
+        <Container>{children}</Container>
+      </Box>
+
       {/* footer  */}
       <Paper
         component={"footer"}
