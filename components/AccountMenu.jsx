@@ -34,7 +34,10 @@ export default function AccountMenu() {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+          <Avatar
+            src="https://avatars.githubusercontent.com/u/57381638?v=4"
+            sx={{ width: 32, height: 32 }}
+          />
         </IconButton>
       </Tooltip>
       <Menu
@@ -47,7 +50,7 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem>
-          <Avatar />
+          <Avatar src="https://avatars.githubusercontent.com/u/57381638?v=4" />
           <Typography ml={2}>Harsh Mangalam</Typography>
         </MenuItem>
 
