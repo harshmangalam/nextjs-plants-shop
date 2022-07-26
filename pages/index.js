@@ -8,9 +8,11 @@ import {
   CardContent,
   CardMedia,
   Grid,
+  Rating,
   Stack,
   Typography,
 } from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
 export default function Home() {
@@ -41,7 +43,7 @@ export default function Home() {
 
       {/* plants start  */}
 
-      <Grid container spacing={4}>
+      <Grid container spacing={4} mt={4}>
         {[...new Array(10)].map((plant) => (
           <Grid item md={3}>
             <Card sx={{ maxWidth: 345 }}>
@@ -62,14 +64,33 @@ export default function Home() {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Button
-                  fullWidth
-                  size="small"
-                  color="primary"
-                  variant="contained"
-                >
-                  Add to cart
-                </Button>
+                <Stack spacing={2} width="100%">
+                  <Stack direction="row" spacing={1}>
+                    <Rating
+                      size="small"
+                      name="plant-feedbacks"
+                      value={4.5}
+                      readOnly
+                      precision={0.5}
+                      emptyIcon={
+                        <StarIcon
+                          style={{ opacity: 0.55 }}
+                          fontSize="inherit"
+                        />
+                      }
+                    />
+                    <Typography variant="caption">44 reviews</Typography>
+                  </Stack>
+
+                  <Button
+                    fullWidth
+                    size="small"
+                    color="primary"
+                    variant="contained"
+                  >
+                    Add to cart
+                  </Button>
+                </Stack>
               </CardActions>
             </Card>
           </Grid>
