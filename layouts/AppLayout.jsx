@@ -2,25 +2,20 @@ import {
   AppBar,
   Badge,
   Box,
-  Button,
   Container,
-  Divider,
-  Grid,
   IconButton,
   Paper,
   Stack,
   Toolbar,
   Typography,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import AccountMenu from "../components/AccountMenu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import YardIcon from "@mui/icons-material/Yard";
 import Link from "next/link";
 export default function AppLayout({ children }) {
   return (
-    <Box>
+    <Stack sx={{ minHeight: "100vh" }}>
       {/* navbar  start */}
       <AppBar position="static">
         <Toolbar>
@@ -46,12 +41,16 @@ export default function AppLayout({ children }) {
       </AppBar>
       {/* navbar end  */}
       {/* main  */}
-      <Box component={"main"} py={4}>
+      <Box component={"main"} py={4} sx={{ flexGrow: 1 }}>
         <Container>{children}</Container>
       </Box>
 
       {/* footer  */}
-      <Paper component={"footer"} elevation={0}>
+      <Paper
+        component={"footer"}
+        variant={"outlined"}
+        sx={{ borderRadius: 0, padding: 4 }}
+      >
         <Container>
           <Stack
             spacing={1}
@@ -68,6 +67,6 @@ export default function AppLayout({ children }) {
           </Typography>
         </Container>
       </Paper>
-    </Box>
+    </Stack>
   );
 }
