@@ -1,5 +1,5 @@
-import SettingsIcon from "@mui/icons-material/Settings";
-import LogoutIcon from "@mui/icons-material/Logout";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import {
   Avatar,
   Divider,
@@ -11,7 +11,8 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-
+import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
+import Link from "next/link";
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -56,15 +57,23 @@ export default function AccountMenu() {
 
         <Divider />
 
+        <Link href="/admin" passHref>
+          <MenuItem>
+            <ListItemIcon>
+              <DashboardOutlinedIcon />
+            </ListItemIcon>
+            Dashboard
+          </MenuItem>
+        </Link>
         <MenuItem>
           <ListItemIcon>
-            <SettingsIcon />
+            <SettingsOutlinedIcon />
           </ListItemIcon>
           Settings
         </MenuItem>
         <MenuItem>
           <ListItemIcon>
-            <LogoutIcon />
+            <LogoutOutlinedIcon />
           </ListItemIcon>
           Logout
         </MenuItem>
