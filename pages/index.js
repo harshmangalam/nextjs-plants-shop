@@ -1,9 +1,23 @@
-import { Avatar, Box, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Grid,
+  Stack,
+  Typography,
+} from "@mui/material";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
 export default function Home() {
   return (
     <Box>
-      <Stack direction={"row"} spacing={4} sx={{overflowX:"auto"}}>
+      {/* categories start  */}
+      <Stack direction={"row"} spacing={4} sx={{ overflowX: "auto" }}>
         {[...new Array(6)].map((category) => (
           <Stack spacing={1}>
             <Avatar
@@ -22,6 +36,47 @@ export default function Home() {
           </Stack>
         ))}
       </Stack>
+
+      {/* categories end  */}
+
+      {/* plants start  */}
+
+      <Grid container spacing={4}>
+        {[...new Array(10)].map((plant) => (
+          <Grid item md={3}>
+            <Card sx={{ maxWidth: 345 }}>
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  image="https://cdn.shopify.com/s/files/1/0047/9730/0847/products/nurserylive-magical-aloe-vera-plant_c3575d29-9805-40e8-88b5-472cc9dca88f.jpg?v=1634223557"
+                  alt="green iguana"
+                />
+                <CardContent>
+                  <Stack direction={"row"} spacing={1} alignItems="center">
+                    <CurrencyRupeeIcon fontSize="medium" />
+                    <Typography variant="h5">399</Typography>
+                  </Stack>
+                  <Typography variant="subtitle1">
+                    Peace Lily, Spathiphyllum - Plant
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button
+                  fullWidth
+                  size="small"
+                  color="primary"
+                  variant="contained"
+                >
+                  Add to cart
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+
+      {/* plants end  */}
     </Box>
   );
 }
