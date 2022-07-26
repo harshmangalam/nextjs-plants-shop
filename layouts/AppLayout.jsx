@@ -2,13 +2,21 @@ import {
   AppBar,
   Badge,
   Box,
+  Button,
+  Container,
+  Divider,
+  Grid,
   IconButton,
+  Paper,
+  Stack,
   Toolbar,
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountMenu from "../components/AccountMenu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import YardIcon from "@mui/icons-material/Yard";
 export default function AppLayout({ children }) {
   return (
     <Box>
@@ -35,7 +43,27 @@ export default function AppLayout({ children }) {
       {/* main  */}
       {children}
       {/* footer  */}
-      footer
+      <Paper
+        component={"footer"}
+        elevation={0}
+        sx={{ position: "absolute", bottom: 0, left: 0, right: 0, paddingY: 2 }}
+      >
+        <Container>
+          <Stack
+            spacing={1}
+            direction="row"
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <YardIcon fontSize="large" />
+            <Typography variant="h5">Plants</Typography>
+          </Stack>
+
+          <Typography textAlign="center" component={"h6"} mt={1}>
+            Made Open Source By Harsh Mangalam
+          </Typography>
+        </Container>
+      </Paper>
     </Box>
   );
 }
