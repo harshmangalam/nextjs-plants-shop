@@ -78,7 +78,7 @@ export default function AppLayout({ children }) {
             <Typography variant="h5">Plants</Typography>
           </Stack>
 
-          <Typography textAlign="center" component={"h6"} mt={1}>
+          <Typography textAlign="center" variant="body1" mt={1}>
             Made Open Source By Harsh Mangalam
           </Typography>
         </Container>
