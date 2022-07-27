@@ -3,6 +3,11 @@ import {
   Box,
   Drawer,
   IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
   Toolbar,
   Tooltip,
   Typography,
@@ -10,12 +15,15 @@ import {
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 
-// import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-
+import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
+import YardOutlinedIcon from "@mui/icons-material/YardOutlined";
+import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+import Link from "next/link";
 
 const drawerWidth = 300;
 export default function AdminLayout({ children }) {
-  const [openDrawer, setOpenDrawer] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(true);
   return (
     <Box>
       {/* appbar  start */}
@@ -59,18 +67,18 @@ export default function AdminLayout({ children }) {
         }}
       >
         <Toolbar />
-        {/* <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
+        <List>
+          {menus.map((menu) => (
+            <Link href={menu.href} passHref>
+              <ListItem key={menu.name} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>{menu.icon}</ListItemIcon>
+                  <ListItemText primary={menu.name} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
           ))}
-        </List> */}
+        </List>
       </Drawer>
       {/* drawer end  */}
       {children}
@@ -78,11 +86,25 @@ export default function AdminLayout({ children }) {
   );
 }
 
-
-// const menus =[
-//     {
-//         name:"Dashboard",
-//         href:"/admin",
-//         icon:
-//     }
-// ]
+const menus = [
+  {
+    name: "Dashboard",
+    href: "/admin",
+    icon: <DashboardOutlinedIcon />,
+  },
+  {
+    name: "Categories",
+    href: "/admin/category",
+    icon: <CategoryOutlinedIcon />,
+  },
+  {
+    name: "Plants",
+    href: "/admin/plants",
+    icon: <YardOutlinedIcon />,
+  },
+  {
+    name: "Orders",
+    href: "/admin/orders",
+    icon: <LocalMallOutlinedIcon />,
+  },
+];
