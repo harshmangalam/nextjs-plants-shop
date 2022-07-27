@@ -11,6 +11,7 @@ import {
   Toolbar,
   Tooltip,
   Typography,
+  Container
 } from "@mui/material";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -20,6 +21,7 @@ import YardOutlinedIcon from "@mui/icons-material/YardOutlined";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import Link from "next/link";
+
 
 const drawerWidth = 300;
 export default function AdminLayout({ children }) {
@@ -81,7 +83,9 @@ export default function AdminLayout({ children }) {
         </List>
       </Drawer>
       {/* drawer end  */}
-      {children}
+      <Box ml={openDrawer ? `${drawerWidth}px` : 0} my={12}>
+        <Container>{children}</Container>
+      </Box>
     </Box>
   );
 }
