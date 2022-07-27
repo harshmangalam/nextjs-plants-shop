@@ -12,6 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Box } from "@mui/system";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { useState } from "react";
+import AppLayout from "../layouts/AppLayout"
 export default function Cart() {
   const [quantity, setQuantity] = useState(1);
   return (
@@ -90,3 +91,8 @@ export default function Cart() {
     </Box>
   );
 }
+
+
+Cart.getLayout = function getLayout(page) {
+  return <AppLayout>{page}</AppLayout>;
+};
