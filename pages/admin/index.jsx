@@ -1,9 +1,9 @@
 import { Box } from "@mui/system";
-
-export default function AdminHome(){
-    return (
-        <Box>
-            Admin
-        </Box>
-    )
+import AdminLayout from "../../layouts/AdminLayout"
+export default function AdminHome() {
+  return <Box>Admin</Box>;
 }
+
+AdminHome.getLayout = function getLayout(page) {
+  return <AdminLayout>{page}</AdminLayout>;
+};
