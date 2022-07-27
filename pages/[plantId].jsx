@@ -106,3 +106,8 @@ export async function getServerSideProps({ params }) {
     },
   };
 }
+
+
+PlantDetails.getLayout = function getLayout(page) {
+  return <AppLayout>{page}</AppLayout>;
+};
