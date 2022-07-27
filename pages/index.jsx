@@ -15,6 +15,7 @@ import {
 import StarIcon from "@mui/icons-material/Star";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import Link from "next/link";
+import AppLayout from "../layouts/AppLayout";
 
 export default function Home() {
   return (
@@ -99,6 +100,10 @@ export default function Home() {
     </Box>
   );
 }
+
+Home.getLayout = function getLayout(page) {
+  return <AppLayout>{page}</AppLayout>;
+};
 
 const categories = [
   {

@@ -10,14 +10,12 @@ const clientSideEmotionCache = createEmotionCache();
 
 const MyApp = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-
+  const getLayout = Component.getLayout || ((page) => page);
   return (
     <CacheProvider value={emotionCache}>
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />
-        <AppLayout>
-          <Component {...pageProps} />
-        </AppLayout>
+        {getLayout(<Component {...pageProps} />)}
       </ThemeProvider>
     </CacheProvider>
   );
