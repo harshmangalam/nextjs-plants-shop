@@ -12,7 +12,7 @@ import { Box } from "@mui/system";
 import StarIcon from "@mui/icons-material/Star";
 import { useState } from "react";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
-
+import AppLayout from "../layouts/AppLayout"
 export default function PlantDetails({ plant }) {
   const [previewImage, setPreviewImage] = useState(plant.images[0]);
 
