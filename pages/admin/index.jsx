@@ -10,8 +10,8 @@ export default function AdminHome() {
         {[...new Array(4)].map((item) => (
           <Grid item md={3}>
             <Paper sx={{ padding: 2 }}>
-              <Stack direction={"row"} spacing={2}>
-                <Avatar sx={{ bgcolor: (theme) => theme.palette.success }}>
+              <Stack direction={"row"} spacing={2} alignItems="center">
+                <Avatar sx={{ bgcolor: (theme) => theme.palette.success.light }}>
                   <PeopleAltOutlinedIcon />
                 </Avatar>
                 <Stack>
