@@ -29,7 +29,7 @@ export const data = {
 
 export default function CategoryGraph() {
   return (
-    <Paper sx={{ padding: 2 }}>
+    <Paper sx={{ padding: 2,height:"100%" }}>
       <Pie data={data} />
     </Paper>
   );
