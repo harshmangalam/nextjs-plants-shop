@@ -7,45 +7,45 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import AdminLayout from "../../../layouts/AdminLayout";
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
+import { Avatar, Box, IconButton, Stack } from "@mui/material";
+import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 export default function Categories() {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="categories table">
         <TableHead>
           <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell align="right">Name</TableCell>
-            <TableCell align="right">Created Date</TableCell>
-            <TableCell align="right">Updated Date</TableCell>
-            <TableCell align="right">Total Plants</TableCell>
+            <TableCell align="center">ID</TableCell>
+            <TableCell align="center">Name</TableCell>
+            <TableCell align="center">Image</TableCell>
+            <TableCell align="center">Created Date</TableCell>
+            <TableCell align="center">Updated Date</TableCell>
+            <TableCell align="center">Total Plants</TableCell>
+            <TableCell align="center">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
+          {categories.map((category) => (
+            <TableRow key={category.id}>
+              <TableCell align="center">{category.id}</TableCell>
+              <TableCell align="center">{category.name}</TableCell>
+              <TableCell align="center">
+                <img src={category.image} sx={{ width: 100, height: 100 }} />
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="center">{category.createdAt}</TableCell>
+              <TableCell align="center">{category.updatedAt}</TableCell>
+              <TableCell align="center">{category.plantsCount}</TableCell>
+              <TableCell align="center">
+                <Stack direction="row" spacing={1} justifyContent="center">
+                  <IconButton aria-label="edit" color="primary">
+                    <BorderColorOutlinedIcon />
+                  </IconButton>
+                  <IconButton aria-label="delete" color="error">
+                    <DeleteOutlineOutlinedIcon />
+                  </IconButton>
+                </Stack>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -57,3 +57,51 @@ export default function Categories() {
 Categories.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;
 };
+
+const categories = [
+  {
+    id: 1,
+    name: "Category 1",
+    image:
+      "https://cdn.shopify.com/s/files/1/0047/9730/0847/files/nurserylive-gardening-menu_96x108.png?v=1652634796",
+    createdAt: new Date().toDateString(),
+    updatedAt: new Date().toDateString(),
+    plantsCount: 23,
+  },
+  {
+    id: 1,
+    name: "Category 1",
+    image:
+      "https://cdn.shopify.com/s/files/1/0047/9730/0847/files/nurserylive-gardening-menu_96x108.png?v=1652634796",
+    createdAt: new Date().toDateString(),
+    updatedAt: new Date().toDateString(),
+    plantsCount: 23,
+  },
+  {
+    id: 1,
+    name: "Category 1",
+    image:
+      "https://cdn.shopify.com/s/files/1/0047/9730/0847/files/nurserylive-gardening-menu_96x108.png?v=1652634796",
+    createdAt: new Date().toDateString(),
+    updatedAt: new Date().toDateString(),
+    plantsCount: 23,
+  },
+  {
+    id: 1,
+    name: "Category 1",
+    image:
+      "https://cdn.shopify.com/s/files/1/0047/9730/0847/files/nurserylive-gardening-menu_96x108.png?v=1652634796",
+    createdAt: new Date().toDateString(),
+    updatedAt: new Date().toDateString(),
+    plantsCount: 23,
+  },
+  {
+    id: 1,
+    name: "Category 1",
+    image:
+      "https://cdn.shopify.com/s/files/1/0047/9730/0847/files/nurserylive-gardening-menu_96x108.png?v=1652634796",
+    createdAt: new Date().toDateString(),
+    updatedAt: new Date().toDateString(),
+    plantsCount: 23,
+  },
+];
