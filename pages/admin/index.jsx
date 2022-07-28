@@ -2,6 +2,7 @@ import { Avatar, Grid, Paper, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import AdminLayout from "../../layouts/AdminLayout";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
+import CategoryGraph from "../../components/CategoryGraph"
 export default function AdminHome() {
   return (
     <Box>
@@ -11,7 +12,9 @@ export default function AdminHome() {
           <Grid item md={3}>
             <Paper sx={{ padding: 2 }}>
               <Stack direction={"row"} spacing={2} alignItems="center">
-                <Avatar sx={{ bgcolor: (theme) => theme.palette.success.light }}>
+                <Avatar
+                  sx={{ bgcolor: (theme) => theme.palette.success.light }}
+                >
                   <PeopleAltOutlinedIcon />
                 </Avatar>
                 <Stack>
@@ -22,6 +25,14 @@ export default function AdminHome() {
             </Paper>
           </Grid>
         ))}
+      </Grid>
+
+      <Grid container spacing={4} mt={4}>
+        {/* orders graph in bar chart  */}
+        <Grid item md={4}>
+          <CategoryGraph />
+        </Grid>
+       
       </Grid>
     </Box>
   );
