@@ -1,3 +1,4 @@
+import { Paper } from "@mui/material";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 
@@ -27,5 +28,9 @@ export const data = {
 };
 
 export default function CategoryGraph() {
-  return <Pie data={data} />;
+  return (
+    <Paper sx={{ padding: 2 }}>
+      <Pie data={data} />
+    </Paper>
+  );
 }
