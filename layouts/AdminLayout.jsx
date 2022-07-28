@@ -99,7 +99,7 @@ const menus = [
   },
   {
     name: "Categories",
-    href: "/admin/category",
+    href: "/admin/categories",
     icon: <CategoryOutlinedIcon />,
   },
   {
