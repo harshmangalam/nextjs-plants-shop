@@ -20,6 +20,7 @@ import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import YardOutlinedIcon from "@mui/icons-material/YardOutlined";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import Link from "next/link";
 
 
@@ -107,8 +108,14 @@ const menus = [
     icon: <YardOutlinedIcon />,
   },
   {
+    name: "Customers",
+    href: "/admin/customers",
+    icon: <PeopleAltOutlinedIcon />,
+  },
+  {
     name: "Orders",
     href: "/admin/orders",
     icon: <LocalMallOutlinedIcon />,
   },
+  
 ];
