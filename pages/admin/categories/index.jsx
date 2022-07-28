@@ -7,50 +7,65 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import AdminLayout from "../../../layouts/AdminLayout";
-import { Avatar, Box, IconButton, Stack } from "@mui/material";
-import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { Avatar, Box, Fab, IconButton, Stack, Tooltip } from "@mui/material";
+import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import AddIcon from "@mui/icons-material/Add";
+import Link from "next/link";
 export default function Categories() {
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="categories table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">ID</TableCell>
-            <TableCell align="center">Name</TableCell>
-            <TableCell align="center">Image</TableCell>
-            <TableCell align="center">Created Date</TableCell>
-            <TableCell align="center">Updated Date</TableCell>
-            <TableCell align="center">Total Plants</TableCell>
-            <TableCell align="center">Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {categories.map((category) => (
-            <TableRow key={category.id}>
-              <TableCell align="center">{category.id}</TableCell>
-              <TableCell align="center">{category.name}</TableCell>
-              <TableCell align="center">
-                <img src={category.image} sx={{ width: 100, height: 100 }} />
-              </TableCell>
-              <TableCell align="center">{category.createdAt}</TableCell>
-              <TableCell align="center">{category.updatedAt}</TableCell>
-              <TableCell align="center">{category.plantsCount}</TableCell>
-              <TableCell align="center">
-                <Stack direction="row" spacing={1} justifyContent="center">
-                  <IconButton aria-label="edit" color="primary">
-                    <BorderColorOutlinedIcon />
-                  </IconButton>
-                  <IconButton aria-label="delete" color="error">
-                    <DeleteOutlineOutlinedIcon />
-                  </IconButton>
-                </Stack>
-              </TableCell>
+    <Box>
+      <TableContainer component={Paper}>
+        <Table aria-label="categories table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">ID</TableCell>
+              <TableCell align="center">Name</TableCell>
+              <TableCell align="center">Image</TableCell>
+              <TableCell align="center">Created Date</TableCell>
+              <TableCell align="center">Updated Date</TableCell>
+              <TableCell align="center">Total Plants</TableCell>
+              <TableCell align="center">Actions</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {categories.map((category) => (
+              <TableRow key={category.id}>
+                <TableCell align="center">{category.id}</TableCell>
+                <TableCell align="center">{category.name}</TableCell>
+                <TableCell align="center">
+                  <img src={category.image} sx={{ width: 100, height: 100 }} />
+                </TableCell>
+                <TableCell align="center">{category.createdAt}</TableCell>
+                <TableCell align="center">{category.updatedAt}</TableCell>
+                <TableCell align="center">{category.plantsCount}</TableCell>
+                <TableCell align="center">
+                  <Stack direction="row" spacing={1} justifyContent="center">
+                    <IconButton aria-label="edit" color="primary">
+                      <BorderColorOutlinedIcon />
+                    </IconButton>
+                    <IconButton aria-label="delete" color="error">
+                      <DeleteOutlineOutlinedIcon />
+                    </IconButton>
+                  </Stack>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Link href="/admin/categories/create" passHref>
+        <Tooltip title="Add Category">
+          <Fab
+            sx={{ position: "fixed", bottom: 16, right: 8 }}
+            color="primary"
+            aria-label="add"
+          >
+            <AddIcon />
+          </Fab>
+        </Tooltip>
+      </Link>
+    </Box>
   );
 }
 
