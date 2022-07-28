@@ -2,7 +2,8 @@ import { Avatar, Grid, Paper, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import AdminLayout from "../../layouts/AdminLayout";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
-import CategoryGraph from "../../components/CategoryGraph"
+import CategoryGraph from "../../components/CategoryGraph";
+import OrdersGraph from "../../components/OrdersGraph";
 export default function AdminHome() {
   return (
     <Box>
@@ -29,10 +30,12 @@ export default function AdminHome() {
 
       <Grid container spacing={4} mt={4}>
         {/* orders graph in bar chart  */}
+        <Grid item md={8}>
+          <OrdersGraph />
+        </Grid>
         <Grid item md={4}>
           <CategoryGraph />
         </Grid>
-       
       </Grid>
     </Box>
   );
