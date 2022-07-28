@@ -1,3 +1,4 @@
+import { Paper } from "@mui/material";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -35,7 +36,7 @@ export const options = {
   },
 };
 
-const labels = ["January", "February", "March", "April","May","June","July"];
+const labels = ["January", "February", "March", "April", "May", "June", "July"];
 
 export const data = {
   labels,
@@ -43,7 +44,7 @@ export const data = {
     {
       fill: true,
       label: "Orders",
-      data: [23, 67, 89, 60,100,200,250],
+      data: [23, 67, 89, 60, 100, 200, 250],
       borderColor: "rgb(53, 162, 235)",
       backgroundColor: "rgba(53, 162, 235, 0.5)",
     },
@@ -51,5 +52,9 @@ export const data = {
 };
 
 export default function OrdersGraph() {
-  return <Line options={options} data={data} />;
+  return (
+    <Paper sx={{padding:2}}>
+      <Line options={options} data={data} />
+    </Paper>
+  );
 }
