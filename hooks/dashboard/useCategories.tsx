@@ -16,12 +16,14 @@ export default function useCategories() {
   };
 
   const handleAddImageUrls = (imageUrls: string[]) => {
+    console.log(imageUrls)
     setCategory((category) => ({ ...category, images: imageUrls }));
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
+      console.log(category)
     } catch (error) {}
   };
   return {

@@ -14,6 +14,7 @@ import {
   OutlinedInput,
   InputAdornment,
   IconButton,
+  DialogActions,
 } from "@mui/material";
 import ImageIcon from "@mui/icons-material/Image";
 import { useState } from "react";
@@ -21,7 +22,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddPhotoIcon from "@mui/icons-material/AddAPhoto";
 import useImage from "../hooks/useImage";
 
-export default function UploadImages() {
+export default function UploadImages({ onAddImages }) {
   const [open, setOpen] = useState(false);
 
   const {
@@ -32,6 +33,12 @@ export default function UploadImages() {
     imageUrl,
     images,
   } = useImage();
+
+  const handleDone = () => {
+    onAddImages(images);
+
+    setOpen(false);
+  };
 
   return (
     <>
@@ -117,6 +124,11 @@ export default function UploadImages() {
             </DialogContentText>
           )}
         </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDone} variant="contained">
+            Done
+          </Button>
+        </DialogActions>
       </Dialog>
     </>
   );
