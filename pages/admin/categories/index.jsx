@@ -7,14 +7,14 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import AdminLayout from "../../../layouts/AdminLayout";
-import { Avatar, Box, Fab, IconButton, Stack, Tooltip } from "@mui/material";
+import { Box, Fab, IconButton, Stack, Tooltip } from "@mui/material";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
 import prisma from "../../../lib/prisma";
 
-export default function Categories() {
+export default function Categories({ categories }) {
   return (
     <Box>
       <TableContainer component={Paper}>
@@ -36,7 +36,10 @@ export default function Categories() {
                 <TableCell align="center">{category.id}</TableCell>
                 <TableCell align="center">{category.name}</TableCell>
                 <TableCell align="center">
-                  <img src={category.image} sx={{ width: 100, height: 100 }} />
+                  <img
+                    src={category.images[0]}
+                    sx={{ width: 100, height: 100 }}
+                  />
                 </TableCell>
                 <TableCell align="center">{category.createdAt}</TableCell>
                 <TableCell align="center">{category.updatedAt}</TableCell>
@@ -77,11 +80,11 @@ Categories.getLayout = function getLayout(page) {
 
 export async function getServerSideProps() {
   try {
-    const categories = await prisma.category.findMany()
+    const categories = await prisma.category.findMany();
     console.log(categories);
     return {
       props: {
-        categories
+        categories,
       },
     };
   } catch (error) {
