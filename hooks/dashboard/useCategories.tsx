@@ -28,6 +28,7 @@ export default function useCategories() {
     handleInputChange,
     handleSubmit,
     loading,
-    handleAddImageUrls
+    handleAddImageUrls,
+    category
   };
 }
