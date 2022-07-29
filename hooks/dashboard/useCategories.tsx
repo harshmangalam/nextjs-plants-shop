@@ -5,7 +5,7 @@ export default function useCategories() {
   const [category, setCategory] = useState({
     name: "",
     description: "",
-    images: "",
+    images: [],
   });
 
   const handleInputChange = (e) => {
@@ -13,6 +13,10 @@ export default function useCategories() {
       ...category,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleAddImageUrls = (imageUrls: string[]) => {
+    setCategory((category) => ({ ...category, images: imageUrls }));
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -24,5 +28,6 @@ export default function useCategories() {
     handleInputChange,
     handleSubmit,
     loading,
+    handleAddImageUrls
   };
 }

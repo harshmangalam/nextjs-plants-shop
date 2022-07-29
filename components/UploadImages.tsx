@@ -16,73 +16,31 @@ import {
   IconButton,
 } from "@mui/material";
 import ImageIcon from "@mui/icons-material/Image";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddPhotoIcon from "@mui/icons-material/AddAPhoto";
-import shortid from "shortid";
+import useImage from "../hooks/useImage";
 
-enum ImageType {
-  FILE_SYSTEM = "file-system",
-  NETWORK_URL = "network-url",
-}
 export default function UploadImages() {
-  const [imageUrl, setImageUrl] = useState("");
   const [open, setOpen] = useState(false);
-  const [localImages, setLocalImages] = useState([]);
-  const fileRef = useRef(null);
 
-  useEffect(() => {
-    return () => {
-      if (localImages.length) {
-        localImages
-          .filter((image) => image.type === ImageType.FILE_SYSTEM)
-          .forEach((url) => URL.revokeObjectURL(url));
-      }
-    };
-  }, []);
+  const {
+    deleteImage,
+    handleAddUrlImage,
+    handleFileInputChange,
+    handleInputChange,
+    imageUrl,
+    images,
+  } = useImage();
 
-  const handleFileChange = (e) => {
-    const files = e.target.files;
-
-    const images = [];
-    for (const file of files) {
-      const image = {
-        id: shortid(),
-        src: URL.createObjectURL(file),
-        type: ImageType.FILE_SYSTEM,
-      };
-      images.push(image);
-    }
-
-    setLocalImages((localImages) => [...localImages, ...images]);
-  };
-
-  const handleAddImage = () => {
-    const image = {
-      id: shortid(),
-      src: imageUrl,
-      type: ImageType.NETWORK_URL,
-    };
-
-    setLocalImages((localImages) => [...localImages, image]);
-    setImageUrl("");
-  };
-
-  const deleteImage = (image) => () => {
-    if (image.type === ImageType.FILE_SYSTEM) {
-      URL.revokeObjectURL(image.src);
-    }
-    const images = localImages.filter((i) => i.id !== image.id);
-    setLocalImages(images);
-  };
   return (
     <>
       <Button onClick={() => setOpen(true)} size="large" variant="outlined">
         Upload Images
       </Button>
       <Dialog
-        maxWidth="sm"
-        sx={{ width: "100%" }}
+        maxWidth="xs"
+        fullWidth
         onClose={() => setOpen(false)}
         open={open}
       >
@@ -98,8 +56,7 @@ export default function UploadImages() {
               Choose from your system
               <input
                 hidden
-                ref={fileRef}
-                onChange={handleFileChange}
+                onChange={handleFileInputChange}
                 accept="image/*"
                 multiple
                 type="file"
@@ -112,12 +69,12 @@ export default function UploadImages() {
                 id="image-url-input"
                 type="text"
                 value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
+                onChange={handleInputChange}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
-                      onClick={handleAddImage}
+                      onClick={handleAddUrlImage}
                       edge="end"
                     >
                       <AddPhotoIcon />
@@ -128,11 +85,11 @@ export default function UploadImages() {
               />
             </FormControl>
           </Stack>
-          {localImages.length ? (
+          {images.length ? (
             <Stack spacing={2} mt={2}>
               <Divider>Preview</Divider>
               <Grid container spacing={2}>
-                {localImages.map((image) => (
+                {images.map((image) => (
                   <Grid item md={6} key={image.id} position="relative">
                     <img
                       src={image.src}
