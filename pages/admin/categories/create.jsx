@@ -26,6 +26,7 @@ export default function Create() {
             <OutlinedInput
               multiline
               maxRows={5}
+              rows={5}
               id="category-description"
               label="Category description"
             />
