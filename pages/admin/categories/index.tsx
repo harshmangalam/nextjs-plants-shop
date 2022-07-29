@@ -38,7 +38,7 @@ export default function Categories({ categories }) {
                 <TableCell align="center">
                   <img
                     src={category.images[0]}
-                    sx={{ width: 100, height: 100 }}
+                    style={{ width: 100, height: 100 }}
                   />
                 </TableCell>
                 <TableCell align="center">{category.createdAt}</TableCell>
@@ -80,8 +80,7 @@ Categories.getLayout = function getLayout(page) {
 
 export async function getServerSideProps() {
   try {
-    const categories = await prisma.category.findMany();
-    console.log(categories);
+    const categories = await prisma.category.findMany({});
     return {
       props: {
         categories,
