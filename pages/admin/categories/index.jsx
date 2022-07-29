@@ -12,6 +12,8 @@ import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
+import prisma from "../../../lib/prisma";
+
 export default function Categories() {
   return (
     <Box>
@@ -72,6 +74,20 @@ export default function Categories() {
 Categories.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;
 };
+
+export async function getServerSideProps() {
+  try {
+    const categories = await prisma.category.findMany()
+    console.log(categories);
+    return {
+      props: {
+        categories
+      },
+    };
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 const categories = [
   {

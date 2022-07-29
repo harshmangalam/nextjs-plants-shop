@@ -44,3 +44,4 @@ export default function AdminHome() {
 AdminHome.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;
 };
+
