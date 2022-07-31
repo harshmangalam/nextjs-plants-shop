@@ -7,7 +7,7 @@ import {
   Paper,
   Stack,
 } from "@mui/material";
-import LoadingButton from '@mui/lab/LoadingButton';
+import LoadingButton from "@mui/lab/LoadingButton";
 
 import AdminLayout from "../../../layouts/AdminLayout";
 import UploadImages from "../../../components/UploadImages";
@@ -56,7 +56,12 @@ export default function Create() {
             />
           </FormControl>
           <UploadImages onAddImages={handleAddImageUrls} />
-          <LoadingButton type="submit" loading={loading}  variant="contained" size="large">
+          <LoadingButton
+            type="submit"
+            loading={loading}
+            variant="contained"
+            size="large"
+          >
             Create
           </LoadingButton>
         </Stack>

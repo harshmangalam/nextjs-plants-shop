@@ -21,9 +21,8 @@ export default function Categories({ categories }) {
         <Table aria-label="categories table">
           <TableHead>
             <TableRow>
-              <TableCell align="center">ID</TableCell>
               <TableCell align="center">Name</TableCell>
-              <TableCell align="center">Image</TableCell>
+              <TableCell align="center">Images</TableCell>
               <TableCell align="center">Created Date</TableCell>
               <TableCell align="center">Updated Date</TableCell>
               <TableCell align="center">Total Plants</TableCell>
@@ -33,7 +32,6 @@ export default function Categories({ categories }) {
           <TableBody>
             {categories.map((category) => (
               <TableRow key={category.id}>
-                <TableCell align="center">{category.id}</TableCell>
                 <TableCell align="center">{category.name}</TableCell>
                 <TableCell align="center">
                   <img
@@ -41,9 +39,13 @@ export default function Categories({ categories }) {
                     style={{ width: 100, height: 100 }}
                   />
                 </TableCell>
-                <TableCell align="center">{category.createdAt}</TableCell>
-                <TableCell align="center">{category.updatedAt}</TableCell>
-                <TableCell align="center">{category.plantsCount}</TableCell>
+                <TableCell align="center">
+                  {new Date(category.createdAt).toDateString()}
+                </TableCell>
+                <TableCell align="center">
+                  {new Date(category.updatedAt).toDateString()}
+                </TableCell>
+                <TableCell align="center">0</TableCell>
                 <TableCell align="center">
                   <Stack direction="row" spacing={1} justifyContent="center">
                     <IconButton aria-label="edit" color="primary">
@@ -83,58 +85,10 @@ export async function getServerSideProps() {
     const categories = await prisma.category.findMany({});
     return {
       props: {
-        categories,
+        categories: JSON.parse(JSON.stringify(categories)),
       },
     };
   } catch (error) {
     console.log(error);
   }
 }
-
-const categories = [
-  {
-    id: 1,
-    name: "Category 1",
-    image:
-      "https://cdn.shopify.com/s/files/1/0047/9730/0847/files/nurserylive-gardening-menu_96x108.png?v=1652634796",
-    createdAt: new Date().toDateString(),
-    updatedAt: new Date().toDateString(),
-    plantsCount: 23,
-  },
-  {
-    id: 1,
-    name: "Category 1",
-    image:
-      "https://cdn.shopify.com/s/files/1/0047/9730/0847/files/nurserylive-gardening-menu_96x108.png?v=1652634796",
-    createdAt: new Date().toDateString(),
-    updatedAt: new Date().toDateString(),
-    plantsCount: 23,
-  },
-  {
-    id: 1,
-    name: "Category 1",
-    image:
-      "https://cdn.shopify.com/s/files/1/0047/9730/0847/files/nurserylive-gardening-menu_96x108.png?v=1652634796",
-    createdAt: new Date().toDateString(),
-    updatedAt: new Date().toDateString(),
-    plantsCount: 23,
-  },
-  {
-    id: 1,
-    name: "Category 1",
-    image:
-      "https://cdn.shopify.com/s/files/1/0047/9730/0847/files/nurserylive-gardening-menu_96x108.png?v=1652634796",
-    createdAt: new Date().toDateString(),
-    updatedAt: new Date().toDateString(),
-    plantsCount: 23,
-  },
-  {
-    id: 1,
-    name: "Category 1",
-    image:
-      "https://cdn.shopify.com/s/files/1/0047/9730/0847/files/nurserylive-gardening-menu_96x108.png?v=1652634796",
-    createdAt: new Date().toDateString(),
-    updatedAt: new Date().toDateString(),
-    plantsCount: 23,
-  },
-];
