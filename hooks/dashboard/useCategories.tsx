@@ -1,6 +1,8 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
+import { useSnackbar } from "notistack";
 export default function useCategories() {
+  const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState({
@@ -30,6 +32,7 @@ export default function useCategories() {
         method: "post",
       });
       setLoading(false);
+      enqueueSnackbar("Category created successfully", { variant: "success" });
       router.replace("/admin/categories");
     } catch (error) {
     } finally {
