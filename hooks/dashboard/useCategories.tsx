@@ -27,13 +27,26 @@ export default function useCategories() {
     e.preventDefault();
     setLoading(true);
     try {
-      const data = await fetch("/api/categories", {
+      const res = await fetch("/api/categories", {
         body: JSON.stringify(category),
         method: "post",
       });
       setLoading(false);
-      enqueueSnackbar("Category created successfully", { variant: "success" });
-      router.replace("/admin/categories");
+
+      const data = await res.json();
+
+      if (res.ok) {
+        enqueueSnackbar(data.message, {
+          variant: "success",
+        });
+        return router.replace("/admin/categories");
+      }
+
+      if (data?.error) {
+        enqueueSnackbar(data.error, {
+          variant: "error",
+        });
+      }
     } catch (error) {
     } finally {
       setLoading(false);

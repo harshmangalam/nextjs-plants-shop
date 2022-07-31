@@ -19,9 +19,15 @@ export default async function handler(
         },
       });
 
-      return res.status(201).json(category);
+      return res.status(201).json({
+        message: "Category created successfully",
+        category,
+      });
     }
   } catch (error) {
     console.log(error);
+    return res.status(500).json({
+      error: "Error while creating category",
+    });
   }
 }
