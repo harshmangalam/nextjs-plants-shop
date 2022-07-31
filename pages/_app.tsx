@@ -5,6 +5,7 @@ import { ThemeProvider, CssBaseline } from "@mui/material";
 import createEmotionCache from "../utils/createEmotionCache";
 import lightTheme from "../themes/lightTheme";
 import AppLayout from "../layouts/AppLayout";
+import { SnackbarProvider } from "notistack";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -15,7 +16,9 @@ const MyApp = (props) => {
     <CacheProvider value={emotionCache}>
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />
-        {getLayout(<Component {...pageProps} />)}
+        <SnackbarProvider>
+          {getLayout(<Component {...pageProps} />)}
+        </SnackbarProvider>
       </ThemeProvider>
     </CacheProvider>
   );
