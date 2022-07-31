@@ -15,6 +15,7 @@ import {
   InputAdornment,
   IconButton,
   DialogActions,
+  Avatar,
 } from "@mui/material";
 import ImageIcon from "@mui/icons-material/Image";
 import { useState } from "react";
@@ -97,14 +98,9 @@ export default function UploadImages({ onAddImages }) {
               <Divider>Preview</Divider>
               <Grid container spacing={2}>
                 {images.map((image) => (
-                  <Grid item md={6} key={image.id} position="relative">
-                    <img
-                      src={image.src}
-                      width={"100%"}
-                      height={"100%"}
-                      style={{ objectFit: "contain" }}
-                    />
-                    <Box position={"absolute"} top={0} right={0}>
+                  <Grid item  key={image.id} position="relative">
+                    <Avatar src={image.src} sx={{ width: 120, height: 120 }} />
+                    <Box position={"absolute"} bottom={0} left={0}>
                       <Fab
                         color="error"
                         aria-label="delete"
