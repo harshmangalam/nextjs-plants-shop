@@ -7,7 +7,16 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import AdminLayout from "../../../layouts/AdminLayout";
-import { Box, Fab, IconButton, Stack, Tooltip } from "@mui/material";
+import {
+  Avatar,
+  AvatarGroup,
+  Box,
+  Fab,
+  IconButton,
+  Stack,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import AddIcon from "@mui/icons-material/Add";
@@ -34,10 +43,15 @@ export default function Categories({ categories }) {
               <TableRow key={category.id}>
                 <TableCell align="center">{category.name}</TableCell>
                 <TableCell align="center">
-                  <img
-                    src={category.images[0]}
-                    style={{ width: 100, height: 100 }}
-                  />
+                  {category.images.length ? (
+                    <AvatarGroup max={3}>
+                      {category.images.map((image, i) => (
+                        <Avatar sx={{width:60,height:60}} alt={`Category Image ${i}`} src={image} />
+                      ))}
+                    </AvatarGroup>
+                  ) : (
+                    <Typography variant="body2" textAlign={"center"}>No Images</Typography>
+                  )}
                 </TableCell>
                 <TableCell align="center">
                   {new Date(category.createdAt).toDateString()}
