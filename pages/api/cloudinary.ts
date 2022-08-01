@@ -20,7 +20,8 @@ export default async function handler(
       if (response.result === "ok") {
         return res.status(200).json({ message: "Image removed successfully" });
       }
-      return res.status(400).json({ error: "Error while removing image" });
+
+      return res.status(400).json({ error: response.result });
     } catch (error) {
       console.log(error);
       return res.status(500).json({ error: "Something went wrong" });

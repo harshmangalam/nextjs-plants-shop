@@ -19,17 +19,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import useImagePreview from "../hooks/useImagePreview";
 import { LoadingButton } from "@mui/lab";
 
-export default function UploadImages({ onAddImages }) {
+export default function UploadImages({ onAddImages, multiple = true }) {
   const [open, setOpen] = useState(false);
 
-  const {
-    deleteImage,
-    images,
-    handeFileChange,
-    isUploading,
-    error,
-    removing,
-  } = useImagePreview();
+  const { deleteImage, images, handeFileChange, isUploading, error, removing } =
+    useImagePreview();
 
   const handleDone = () => {
     onAddImages(images);
@@ -63,33 +57,30 @@ export default function UploadImages({ onAddImages }) {
                 hidden
                 onChange={handeFileChange}
                 accept="image/*"
-                multiple
+                multiple={multiple}
                 type="file"
               />
             </LoadingButton>
           </Stack>
           {images.length ? (
-            <Stack spacing={2} mt={2}>
-              <Divider>Preview</Divider>
-              <Grid container spacing={2}>
-                {images.map((image) => (
-                  <Grid item key={image.asset_id} position="relative">
-                    <Avatar src={image.url} sx={{ width: 120, height: 120 }} />
-                    <Box position={"absolute"} bottom={0} left={0}>
-                      <Fab
-                        color="error"
-                        aria-label="delete"
-                        size="small"
-                        onClick={() => deleteImage(image.public_id)}
-                        disabled={removing === image.public_id}
-                      >
-                        <DeleteIcon fontSize="small" />
-                      </Fab>
-                    </Box>
-                  </Grid>
-                ))}
-              </Grid>
-            </Stack>
+            <Grid container spacing={2} justifyContent="center" my={4}>
+              {images.map((image) => (
+                <Grid item key={image.asset_id} position="relative">
+                  <Avatar variant="rounded" src={image.url} sx={{ width: 120, height: 120 }} />
+                  <Box position={"absolute"} bottom={0} left={0}>
+                    <Fab
+                      color="error"
+                      aria-label="delete"
+                      size="small"
+                      onClick={() => deleteImage(image.public_id)}
+                      disabled={removing === image.public_id}
+                    >
+                      <DeleteIcon fontSize="small" />
+                    </Fab>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
           ) : (
             <DialogContentText mt={2} textAlign="center">
               Add images to see preview

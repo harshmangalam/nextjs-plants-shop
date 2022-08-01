@@ -43,7 +43,8 @@ export default function useImagePreview() {
         );
         setImages(filterImages);
       } else {
-        setError("Error while removing image");
+        const data = await response.json()
+        setError(data.error);
       }
     } catch (error) {
       console.log(error);
