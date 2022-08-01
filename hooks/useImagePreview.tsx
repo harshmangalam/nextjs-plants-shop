@@ -5,6 +5,7 @@ const CLOUDINARY_ENDPOINT = `https://api.cloudinary.com/v1_1/${process.env.NEXT_
 export default function useImagePreview() {
   const [images, setImages] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
+  const [removing, setRemoving] = useState(null);
   const [error, setError] = useState("");
 
   const handeFileChange = async (e) => {
@@ -19,7 +20,6 @@ export default function useImagePreview() {
           data.push(res);
         }
       }
-      
 
       setImages((images) => [...images, ...data]);
     } catch (error) {
@@ -29,9 +29,27 @@ export default function useImagePreview() {
     }
   };
 
-  const deleteImage = (assetId)  => {
-    const filterImages = images.filter((image) => image.asset_id !== assetId);
-    setImages(filterImages);
+  const deleteImage = async (publicId) => {
+    setRemoving(publicId);
+    try {
+      const response = await fetch("/api/cloudinary", {
+        method: "delete",
+        body: publicId,
+      });
+
+      if (response.ok) {
+        const filterImages = images.filter(
+          (image) => image.public_id !== publicId
+        );
+        setImages(filterImages);
+      } else {
+        setError("Error while removing image");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setRemoving(null);
+    }
   };
 
   async function uploadToCloud(file) {
@@ -69,5 +87,6 @@ export default function useImagePreview() {
     deleteImage,
     isUploading,
     error,
+    removing,
   };
 }

@@ -22,8 +22,14 @@ import { LoadingButton } from "@mui/lab";
 export default function UploadImages({ onAddImages }) {
   const [open, setOpen] = useState(false);
 
-  const { deleteImage, images, handeFileChange, isUploading, error } =
-    useImagePreview();
+  const {
+    deleteImage,
+    images,
+    handeFileChange,
+    isUploading,
+    error,
+    removing,
+  } = useImagePreview();
 
   const handleDone = () => {
     onAddImages(images);
@@ -74,7 +80,8 @@ export default function UploadImages({ onAddImages }) {
                         color="error"
                         aria-label="delete"
                         size="small"
-                        onClick={() => deleteImage(image.asset_id)}
+                        onClick={() => deleteImage(image.public_id)}
+                        disabled={removing === image.public_id}
                       >
                         <DeleteIcon fontSize="small" />
                       </Fab>
