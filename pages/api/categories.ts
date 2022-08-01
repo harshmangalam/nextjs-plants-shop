@@ -10,7 +10,6 @@ export default async function handler(
     if (req.method === "POST") {
       let { name, description, images } = JSON.parse(req.body);
 
-      images = images.map((image) => image.src);
       const category = await prisma.category.create({
         data: {
           name,
