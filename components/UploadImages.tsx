@@ -21,7 +21,7 @@ import ImageIcon from "@mui/icons-material/Image";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddPhotoIcon from "@mui/icons-material/AddAPhoto";
-import useImage from "../hooks/useImage";
+import useImagePreview from "../hooks/useImagePreview";
 
 export default function UploadImages({ onAddImages }) {
   const [open, setOpen] = useState(false);
@@ -31,13 +31,12 @@ export default function UploadImages({ onAddImages }) {
     handleAddUrlImage,
     handleFileInputChange,
     handleInputChange,
-    imageUrl,
+    inputImageURL,
     images,
-  } = useImage();
+  } = useImagePreview();
 
   const handleDone = () => {
     onAddImages(images);
-
     setOpen(false);
   };
 
@@ -76,7 +75,7 @@ export default function UploadImages({ onAddImages }) {
               <OutlinedInput
                 id="image-url-input"
                 type="text"
-                value={imageUrl}
+                value={inputImageURL}
                 onChange={handleInputChange}
                 endAdornment={
                   <InputAdornment position="end">
@@ -98,8 +97,8 @@ export default function UploadImages({ onAddImages }) {
               <Divider>Preview</Divider>
               <Grid container spacing={2}>
                 {images.map((image) => (
-                  <Grid item  key={image.id} position="relative">
-                    <Avatar src={image.src} sx={{ width: 120, height: 120 }} />
+                  <Grid item  key={image} position="relative">
+                    <Avatar src={image} sx={{ width: 120, height: 120 }} />
                     <Box position={"absolute"} bottom={0} left={0}>
                       <Fab
                         color="error"
