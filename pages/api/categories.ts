@@ -10,9 +10,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  try {
-    // create new category 
-    if (req.method === "POST") {
+  if (req.method === "POST") {
+    try {
+      // create new category
       let { name, description, images } = JSON.parse(req.body);
 
       const category = await prisma.category.create({
@@ -27,11 +27,29 @@ export default async function handler(
         message: "Category created successfully",
         category,
       });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        error: "Error while creating category",
+      });
     }
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      error: "Error while creating category",
-    });
+  }
+
+  // delete category
+
+  if (req.method === "DELETE") {
+    try {
+      const categoryId = req.body;
+
+      const category = await prisma.category.delete({
+        where: {
+          id: categoryId,
+        },
+      });
+      console.log(category)
+      return res.status(200).json({ message: "Category deleted successfully" });
+    } catch (error) {
+      return res.status(500).json({ error: "Error while deleting category" });
+    }
   }
 }
