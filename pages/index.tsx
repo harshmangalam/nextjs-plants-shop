@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
-import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee"; 
 import Link from "next/link";
 import AppLayout from "../layouts/AppLayout";
 
