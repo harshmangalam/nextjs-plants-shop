@@ -1,3 +1,8 @@
+/**
+ * Category api
+ *
+ */
+
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../lib/prisma";
 
@@ -5,8 +10,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log("hi");
   try {
+    // create new category 
     if (req.method === "POST") {
       let { name, description, images } = JSON.parse(req.body);
 
