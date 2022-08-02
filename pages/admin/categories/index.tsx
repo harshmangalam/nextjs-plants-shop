@@ -22,8 +22,10 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
 import prisma from "../../../lib/prisma";
+import useCategories from "../../../hooks/dashboard/useCategories";
 
 export default function Categories({ categories }) {
+  const { handleDeleteCategory } = useCategories();
   return (
     <Box>
       <TableContainer component={Paper}>
@@ -72,7 +74,11 @@ export default function Categories({ categories }) {
                     <IconButton aria-label="edit" color="primary">
                       <BorderColorOutlinedIcon />
                     </IconButton>
-                    <IconButton aria-label="delete" color="error">
+                    <IconButton
+                      aria-label="delete"
+                      color="error"
+                      onClick={() => handleDeleteCategory(category.id)}
+                    >
                       <DeleteOutlineOutlinedIcon />
                     </IconButton>
                   </Stack>

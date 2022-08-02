@@ -5,6 +5,7 @@ export default function useCategories() {
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(null);
   const [category, setCategory] = useState({
     name: "",
     description: "",
@@ -52,11 +53,37 @@ export default function useCategories() {
       setLoading(false);
     }
   };
+
+  const handleDeleteCategory = async (categoryId) => {
+    setDeleting(categoryId);
+    try {
+      const response = await fetch("/api/categories", {
+        method: "DELETE",
+        body: categoryId,
+      });
+      const data = await response.json();
+      if (response.ok) {
+        enqueueSnackbar(data.message, {
+          variant: "success",
+        });
+        return router.replace("/admin/categories")
+      } else {
+        enqueueSnackbar(data.error, {
+          variant: "error",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setDeleting(null);
+    }
+  };
   return {
     handleInputChange,
     handleSubmit,
     loading,
     handleAddImageUrls,
     category,
+    handleDeleteCategory,
   };
 }
