@@ -10,8 +10,14 @@ import {
 import { Box } from "@mui/system";
 import { useState } from "react";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import { Category } from "@prisma/client";
 
-export default function EditCategoryDialog({}) {
+export default function EditCategoryDialog({
+  id,
+  name,
+  images,
+  description,
+}: Category) {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -30,21 +36,18 @@ export default function EditCategoryDialog({}) {
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        maxWidth="sm"
+        fullWidth
       >
         <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
+          {name}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
-          </DialogContentText>
+         
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
-          </Button>
+          <Button onClick={handleClose}>Close</Button>
+          <Button onClick={handleClose}>Edit</Button>
         </DialogActions>
       </Dialog>
     </Box>
