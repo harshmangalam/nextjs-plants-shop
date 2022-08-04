@@ -46,16 +46,13 @@ export default function Categories({ categories }) {
                 <TableCell align="center">{category.name}</TableCell>
                 <TableCell align="center">
                   {category.images.length ? (
-                    <AvatarGroup max={3}>
-                      {category.images.map((image) => (
-                        <Avatar
-                          id={image.public_id}
-                          sx={{ width: 60, height: 60 }}
-                          alt={image.public_id}
-                          src={image.url}
-                        />
-                      ))}
-                    </AvatarGroup>
+                    <Avatar
+                      variant="rounded"
+                      id={category.images[0].public_id}
+                      sx={{ width: 80, height: 80, margin: "auto" }}
+                      alt={category.images[0].public_id}
+                      src={category.images[0].url}
+                    />
                   ) : (
                     <Typography variant="body2" textAlign={"center"}>
                       No Images
