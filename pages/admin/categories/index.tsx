@@ -9,7 +9,6 @@ import Paper from "@mui/material/Paper";
 import AdminLayout from "../../../layouts/AdminLayout";
 import {
   Avatar,
-  AvatarGroup,
   Box,
   Fab,
   IconButton,
@@ -17,12 +16,12 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
 import prisma from "../../../lib/prisma";
 import useCategories from "../../../hooks/dashboard/useCategories";
+import EditCategoryDialog from "../../../components/Category/EditCategoryDialog";
 
 export default function Categories({ categories }) {
   const { handleDeleteCategory } = useCategories();
@@ -68,9 +67,7 @@ export default function Categories({ categories }) {
                 <TableCell align="center">0</TableCell>
                 <TableCell align="center">
                   <Stack direction="row" spacing={1} justifyContent="center">
-                    <IconButton aria-label="edit" color="primary">
-                      <BorderColorOutlinedIcon />
-                    </IconButton>
+                    <EditCategoryDialog {...category} />
                     <IconButton
                       aria-label="delete"
                       color="error"
