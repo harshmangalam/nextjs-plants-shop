@@ -1,15 +1,18 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
-export default function useCategories() {
+export default function useCategories(
+  defaultValue = { name: "", description: "", images: [] }
+) {
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(null);
+  const [editing, setEditing] = useState(false);
   const [category, setCategory] = useState({
-    name: "",
-    description: "",
-    images: [],
+    name: defaultValue.name,
+    description: defaultValue.description,
+    images: defaultValue.images,
   });
 
   const handleInputChange = (e) => {
@@ -20,7 +23,6 @@ export default function useCategories() {
   };
 
   const handleAddImageUrls = (imageUrls: string[]) => {
-    console.log(imageUrls);
     setCategory((category) => ({ ...category, images: imageUrls }));
   };
 
@@ -66,7 +68,7 @@ export default function useCategories() {
         enqueueSnackbar(data.message, {
           variant: "success",
         });
-        return router.replace("/admin/categories")
+        return router.replace("/admin/categories");
       } else {
         enqueueSnackbar(data.error, {
           variant: "error",
@@ -78,6 +80,18 @@ export default function useCategories() {
       setDeleting(null);
     }
   };
+
+  const handleEditCategory = async (e: FormEvent) => {
+    e.preventDefault();
+    setEditing(true);
+    try {
+      console.log(category);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setEditing(false);
+    }
+  };
   return {
     handleInputChange,
     handleSubmit,
@@ -85,5 +99,7 @@ export default function useCategories() {
     handleAddImageUrls,
     category,
     handleDeleteCategory,
+    handleEditCategory,
+    editing,
   };
 }
