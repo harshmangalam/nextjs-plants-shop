@@ -84,7 +84,7 @@ export default async function handler(
       });
 
       return res.status(201).json({
-        message: "Category created successfully",
+        message: "Category updated successfully",
       });
     } catch (error) {
       console.log(error);
