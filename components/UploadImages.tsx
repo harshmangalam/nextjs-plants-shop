@@ -19,11 +19,15 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import useImagePreview from "../hooks/useImagePreview";
 import { LoadingButton } from "@mui/lab";
 
-export default function UploadImages({ onAddImages, multiple = true }) {
+export default function UploadImages({
+  onAddImages,
+  multiple = true,
+  defaultImages = [],
+}) {
   const [open, setOpen] = useState(false);
 
   const { deleteImage, images, handeFileChange, isUploading, error, removing } =
-    useImagePreview();
+    useImagePreview(defaultImages);
 
   const handleDone = () => {
     onAddImages(images);
@@ -66,7 +70,11 @@ export default function UploadImages({ onAddImages, multiple = true }) {
             <Grid container spacing={2} justifyContent="center" my={4}>
               {images.map((image) => (
                 <Grid item key={image.asset_id} position="relative">
-                  <Avatar variant="rounded" src={image.url} sx={{ width: 120, height: 120 }} />
+                  <Avatar
+                    variant="rounded"
+                    src={image.url}
+                    sx={{ width: 120, height: 120 }}
+                  />
                   <Box position={"absolute"} bottom={0} left={0}>
                     <Fab
                       color="error"

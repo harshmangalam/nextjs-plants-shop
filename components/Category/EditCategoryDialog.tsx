@@ -82,7 +82,10 @@ export default function EditCategoryDialog(defaultCategory: Category) {
                 label="Category description"
               />
             </FormControl>
-            <UploadImages onAddImages={handleAddImageUrls} />
+            <UploadImages
+              defaultImages={category.images}
+              onAddImages={handleAddImageUrls}
+            />
             <LoadingButton
               type="submit"
               loading={editing}

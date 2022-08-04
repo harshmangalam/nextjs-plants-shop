@@ -2,8 +2,8 @@ import { useState } from "react";
 import shortid from "shortid";
 const CLOUDINARY_ENDPOINT = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}/image/upload`;
 
-export default function useImagePreview() {
-  const [images, setImages] = useState([]);
+export default function useImagePreview(defaultImages = []) {
+  const [images, setImages] = useState(defaultImages);
   const [isUploading, setIsUploading] = useState(false);
   const [removing, setRemoving] = useState(null);
   const [error, setError] = useState("");
@@ -43,7 +43,7 @@ export default function useImagePreview() {
         );
         setImages(filterImages);
       } else {
-        const data = await response.json()
+        const data = await response.json();
         setError(data.error);
       }
     } catch (error) {
