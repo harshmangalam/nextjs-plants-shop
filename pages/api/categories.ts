@@ -1,5 +1,8 @@
 /**
  * Category api
+ * edit
+ * delete
+ * create
  *
  */
 
@@ -25,7 +28,6 @@ export default async function handler(
 
       return res.status(201).json({
         message: "Category created successfully",
-        category,
       });
     } catch (error) {
       console.log(error);
@@ -46,10 +48,49 @@ export default async function handler(
           id: categoryId,
         },
       });
-      console.log(category)
+
       return res.status(200).json({ message: "Category deleted successfully" });
     } catch (error) {
       return res.status(500).json({ error: "Error while deleting category" });
+    }
+  }
+
+  if (req.method === "EDIT") {
+    try {
+      // edit  category
+      let { id, name, description, images } = JSON.parse(req.body);
+
+      // check category exist or not
+      const category = await prisma.category.findUnique({
+        where: {
+          id,
+        },
+      });
+
+      // return not found error in case if category not found
+      if (!category) {
+        return res.status(404).json({ error: "Category not found" });
+      }
+
+      await prisma.category.update({
+        where: {
+          id,
+        },
+        data: {
+          name,
+          images,
+          description,
+        },
+      });
+
+      return res.status(201).json({
+        message: "Category created successfully",
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        error: "Error while creating category",
+      });
     }
   }
 }
