@@ -55,7 +55,7 @@ export default async function handler(
     }
   }
 
-  if (req.method === "EDIT") {
+  if (req.method === "PUT") {
     try {
       // edit  category
       let { id, name, description, images } = JSON.parse(req.body);

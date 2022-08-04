@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 export default function useCategories(
-  defaultValue = { name: "", description: "", images: [] }
+  defaultValue = { id: "", name: "", description: "", images: [] }
 ) {
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
@@ -10,6 +10,7 @@ export default function useCategories(
   const [deleting, setDeleting] = useState(null);
   const [editing, setEditing] = useState(false);
   const [category, setCategory] = useState({
+    id: defaultValue.id,
     name: defaultValue.name,
     description: defaultValue.description,
     images: defaultValue.images,
@@ -81,11 +82,28 @@ export default function useCategories(
     }
   };
 
-  const handleEditCategory = async (e: FormEvent) => {
-    e.preventDefault();
+  const editCategory = async () => {
     setEditing(true);
     try {
-      console.log(category);
+      const res = await fetch("/api/categories", {
+        body: JSON.stringify(category),
+        method: "put",
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        enqueueSnackbar(data.message, {
+          variant: "success",
+        });
+        return router.replace("/admin/categories");
+      }
+
+      if (data?.error) {
+        enqueueSnackbar(data.error, {
+          variant: "error",
+        });
+      }
     } catch (error) {
       console.log(error);
     } finally {
@@ -99,7 +117,7 @@ export default function useCategories(
     handleAddImageUrls,
     category,
     handleDeleteCategory,
-    handleEditCategory,
+    editCategory,
     editing,
   };
 }

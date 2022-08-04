@@ -24,7 +24,7 @@ export default function EditCategoryDialog(defaultCategory: Category) {
     handleAddImageUrls,
     handleInputChange,
     editing,
-    handleEditCategory,
+    editCategory,
   } = useCategories(defaultCategory);
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -32,6 +32,12 @@ export default function EditCategoryDialog(defaultCategory: Category) {
   };
 
   const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleEditCategory = async (e) => {
+    e.preventDefault();
+    await editCategory();
     setOpen(false);
   };
   return (
@@ -47,7 +53,7 @@ export default function EditCategoryDialog(defaultCategory: Category) {
         maxWidth="sm"
         fullWidth
       >
-        <DialogTitle id="alert-dialog-title">{category.name}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">Edit category</DialogTitle>
         <DialogContent>
           <Stack
             spacing={2}
