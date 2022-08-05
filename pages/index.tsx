@@ -13,20 +13,25 @@ import {
   Typography,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
-import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee"; 
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import Link from "next/link";
 import AppLayout from "../layouts/AppLayout";
+import prisma from "../lib/prisma";
+import { Category } from "@prisma/client";
 
-export default function Home() {
+interface Props {
+  categories: Category[];
+}
+export default function Home({ categories }: Props) {
   return (
     <Box>
       {/* categories start  */}
       <Stack direction={"row"} spacing={4} sx={{ overflowX: "auto" }}>
-        {[...new Array(6)].map((category) => (
+        {categories.map((category) => (
           <Stack spacing={1}>
             <Avatar
-              alt="garedening"
-              src="https://cdn.shopify.com/s/files/1/0047/9730/0847/collections/nurserylive-trending-in-gardening-collection-image_173x173.jpg?v=1652097678"
+              alt={category.name}
+              src={(category.images[0] as { url: string }).url}
               sx={{ width: 140, height: 140 }}
               variant="rounded"
             />
@@ -35,7 +40,7 @@ export default function Home() {
               textAlign={"center"}
               sx={{ textTransform: "uppercase" }}
             >
-              garedening
+              {category.name}
             </Typography>
           </Stack>
         ))}
@@ -101,15 +106,22 @@ export default function Home() {
   );
 }
 
+export async function getServerSideProps() {
+  try {
+    const categories = await prisma.category.findMany();
+    return {
+      props: {
+        categories: JSON.parse(JSON.stringify(categories)),
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {},
+    };
+  }
+}
+
 Home.getLayout = function getLayout(page) {
   return <AppLayout>{page}</AppLayout>;
 };
-
-const categories = [
-  {
-    _id: 1,
-    name: "garedening",
-    image:
-      "https://cdn.shopify.com/s/files/1/0047/9730/0847/files/nurserylive-gardening-menu_96x108.png?v=1652634796",
-  },
-];
