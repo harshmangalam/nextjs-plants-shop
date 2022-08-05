@@ -30,4 +30,5 @@ model Plant {
   quantity    Int
   category    Category @relation(fields: [categoryId], references: [id])
   categoryId  String
+   images      Json[]
 }
