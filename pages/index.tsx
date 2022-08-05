@@ -18,6 +18,7 @@ import Link from "next/link";
 import AppLayout from "../layouts/AppLayout";
 import prisma from "../lib/prisma";
 import { Category } from "@prisma/client";
+import CategoryItem from "../components/Category/CategoryItem";
 
 interface Props {
   categories: Category[];
@@ -28,21 +29,7 @@ export default function Home({ categories }: Props) {
       {/* categories start  */}
       <Stack direction={"row"} spacing={4} sx={{ overflowX: "auto" }}>
         {categories.map((category) => (
-          <Stack spacing={1}>
-            <Avatar
-              alt={category.name}
-              src={(category.images[0] as { url: string }).url}
-              sx={{ width: 140, height: 140 }}
-              variant="rounded"
-            />
-            <Typography
-              fontSize={14}
-              textAlign={"center"}
-              sx={{ textTransform: "uppercase" }}
-            >
-              {category.name}
-            </Typography>
-          </Stack>
+          <CategoryItem key={category.id} {...category} />
         ))}
       </Stack>
 
