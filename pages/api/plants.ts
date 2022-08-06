@@ -81,7 +81,7 @@ export default async function handler(
 
   if (req.method === "DELETE") {
     try {
-      const { plantId } = req.body;
+      const  plantId  = req.body;
       const plant = await prisma.plant.findUnique({
         where: {
           id: plantId,

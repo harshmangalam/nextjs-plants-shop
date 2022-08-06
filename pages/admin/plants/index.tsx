@@ -22,8 +22,10 @@ import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
 import prisma from "../../../lib/prisma";
 import EditPlantDialog from "../../../components/Plant/EditPlantDialog";
+import usePlants from "../../../hooks/dashboard/usePlants";
 
-export default function Plants({ plants,categories }) {
+export default function Plants({ plants, categories }) {
+  const { deletePlant, deleting } = usePlants();
   return (
     <Box>
       <TableContainer component={Paper}>
@@ -77,11 +79,15 @@ export default function Plants({ plants,categories }) {
 
                 <TableCell align="center">
                   <Stack direction="row" spacing={1} justifyContent="center">
-                    <EditPlantDialog categories={categories} defaultPlant={plant} />
+                    <EditPlantDialog
+                      categories={categories}
+                      defaultPlant={plant}
+                    />
                     <IconButton
                       aria-label="delete"
                       color="error"
-                      onClick={() => {}}
+                      onClick={() => deletePlant(plant.id)}
+                      disabled={deleting === plant.id}
                     >
                       <DeleteOutlineOutlinedIcon />
                     </IconButton>
@@ -133,7 +139,7 @@ export async function getServerSideProps() {
     return {
       props: {
         plants: JSON.parse(JSON.stringify(plants)),
-        categories
+        categories,
       },
     };
   } catch (error) {
