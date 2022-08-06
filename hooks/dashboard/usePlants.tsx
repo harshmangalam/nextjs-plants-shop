@@ -1,22 +1,24 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
-export default function usePlants(
-  defaultValue = {
-    id: "",
-    name: "",
-    description: "",
-    images: [],
-    price: 0,
-    categoryId: "",
-  }
-) {
+
+interface DefaultValue {
+  id?: string;
+  name: string;
+  description: string;
+  images: Array<any>;
+  price: number;
+  categoryId: string;
+}
+export default function usePlants(defaultValue: DefaultValue) {
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const [creating, setCreating] = useState(false);
   const [deleting, setDeleting] = useState(null);
   const [editing, setEditing] = useState(false);
-  const [plant, setPlant] = useState(defaultValue);
+  const [plant, setPlant] = useState({
+    ...defaultValue,
+  });
 
   const handleInputChange = (e) => {
     setPlant((plant) => ({
@@ -120,5 +122,6 @@ export default function usePlants(
     deletePlant,
     editPlant,
     editing,
+    deleting,
   };
 }
