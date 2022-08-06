@@ -22,7 +22,7 @@ import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
 import prisma from "../../../lib/prisma";
 
-export default function Plants({plants}) {
+export default function Plants({ plants }) {
   return (
     <Box>
       <TableContainer component={Paper}>
@@ -45,10 +45,11 @@ export default function Plants({plants}) {
                 <TableCell align="center">{plant.name}</TableCell>
                 <TableCell align="center">
                   {plant.images.length ? (
-                    <AvatarGroup max={2}>
+                    <AvatarGroup max={3}>
                       {plant.images.map((image) => (
                         <Avatar
-                          variant="circular"
+                          key={image.public_id}
+                          variant="rounded"
                           id={image.public_id}
                           sx={{ width: 80, height: 80, margin: "auto" }}
                           alt={image.public_id}
@@ -64,6 +65,7 @@ export default function Plants({plants}) {
                 </TableCell>
                 <TableCell align="center">{plant.price}</TableCell>
                 <TableCell align="center">{plant.quantity}</TableCell>
+                <TableCell align="center">{plant.category.name}</TableCell>
 
                 <TableCell align="center">
                   {new Date(plant.createdAt).toDateString()}
