@@ -72,7 +72,7 @@ export default function usePlants(defaultValue?: DefaultValue) {
         enqueueSnackbar(data.message, {
           variant: "success",
         });
-        return router.replace("/admin/categories");
+        return router.replace("/admin/plants");
       } else {
         enqueueSnackbar(data.error, {
           variant: "error",
