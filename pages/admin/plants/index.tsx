@@ -89,7 +89,7 @@ export default function Plants({plants}) {
         </Table>
       </TableContainer>
       <Link href="/admin/plants/create" passHref>
-        <Tooltip title="Add Category">
+        <Tooltip title="Add Plants">
           <Fab
             sx={{ position: "fixed", bottom: 16, right: 8 }}
             color="primary"
