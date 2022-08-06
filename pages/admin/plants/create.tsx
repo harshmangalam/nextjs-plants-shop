@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   FormControl,
   InputLabel,
@@ -7,11 +8,13 @@ import {
   Paper,
   Select,
   Stack,
+  Typography,
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import AdminLayout from "../../../layouts/AdminLayout";
 import UploadImages from "../../../components/UploadImages";
-export default function Create() {
+import prisma from "../../../lib/prisma";
+export default function CreatePlant({ categories }) {
   return (
     <Box>
       <Paper sx={{ maxWidth: 600, margin: "auto", padding: 4 }}>
@@ -63,7 +66,14 @@ export default function Create() {
               label="Category"
               onChange={() => {}}
             >
-              <MenuItem value={10}>Ten</MenuItem>
+              {categories.map((category) => (
+                <MenuItem key={category.id} value={category.id}>
+                  <Stack direction={"row"} spacing={2} alignItems="center">
+                    <Avatar src={category.images[0].url} />
+                    <Typography>{category.name}</Typography>
+                  </Stack>
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
           <UploadImages onAddImages={() => {}} multiple />
@@ -81,6 +91,21 @@ export default function Create() {
   );
 }
 
-Create.getLayout = function getLayout(page) {
+CreatePlant.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;
 };
+
+export async function getServerSideProps() {
+  const categories = await prisma.category.findMany({
+    select: {
+      id: true,
+      images: true,
+      name: true,
+    },
+  });
+  return {
+    props: {
+      categories,
+    },
+  };
+}
