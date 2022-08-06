@@ -20,8 +20,9 @@ import {
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
+import prisma from "../../../lib/prisma";
 
-export default function Plants() {
+export default function Plants({plants}) {
   return (
     <Box>
       <TableContainer component={Paper}>
@@ -39,7 +40,7 @@ export default function Plants() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {[].map((plant) => (
+            {plants.map((plant) => (
               <TableRow key={plant.id}>
                 <TableCell align="center">{plant.name}</TableCell>
                 <TableCell align="center">
@@ -106,15 +107,24 @@ Plants.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;
 };
 
-// export async function getServerSideProps() {
-//   try {
-//     const categories = await prisma.category.findMany({});
-//     return {
-//       props: {
-//         categories: JSON.parse(JSON.stringify(categories)),
-//       },
-//     };
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+export async function getServerSideProps() {
+  try {
+    const plants = await prisma.plant.findMany({
+      include: {
+        category: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
+    return {
+      props: {
+        plants: JSON.parse(JSON.stringify(plants)),
+      },
+    };
+  } catch (error) {
+    console.log(error);
+  }
+}
