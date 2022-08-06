@@ -14,57 +14,75 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import AdminLayout from "../../../layouts/AdminLayout";
 import UploadImages from "../../../components/UploadImages";
 import prisma from "../../../lib/prisma";
+import usePlants from "../../../hooks/dashboard/usePlants";
 export default function CreatePlant({ categories }) {
+  const {
+    plant,
+    createPlant,
+    handleAddImageUrls,
+    handleInputChange,
+    creating,
+  } = usePlants({
+    name: "",
+    images: [],
+    price: 0,
+    description: "",
+    categoryId: "",
+  });
   return (
     <Box>
       <Paper sx={{ maxWidth: 600, margin: "auto", padding: 4 }}>
-        <Stack spacing={2} component={"form"} method="post" onSubmit={() => {}}>
+        <Stack
+          spacing={2}
+          component={"form"}
+          method="post"
+          onSubmit={createPlant}
+        >
           <FormControl fullWidth variant="outlined">
-            <InputLabel htmlFor="plant-name">Plant name</InputLabel>
+            <InputLabel htmlFor="name">Plant name</InputLabel>
             <OutlinedInput
-              value={""}
-              onChange={() => {}}
+              value={plant.name}
+              onChange={handleInputChange}
               name="name"
-              id="plant-name"
-              label="plant name"
+              id="name"
+              label="Plant name"
             />
           </FormControl>
 
           <FormControl fullWidth variant="outlined">
-            <InputLabel htmlFor="plant-price">Plant price</InputLabel>
+            <InputLabel htmlFor="price">Plant price</InputLabel>
             <OutlinedInput
-              value={""}
-              onChange={() => {}}
+              value={plant.price}
+              onChange={handleInputChange}
               name="price"
-              id="plant-price"
+              id="price"
               label="Plant price"
+              type="number"
             />
           </FormControl>
 
           <FormControl fullWidth variant="outlined">
-            <InputLabel htmlFor="plant-description">
-              Plant description
-            </InputLabel>
+            <InputLabel htmlFor="description">Plant description</InputLabel>
             <OutlinedInput
               multiline
-              value={""}
-              onChange={() => {}}
+              value={plant.description}
+              onChange={handleInputChange}
               name="description"
-              maxRows={5}
               rows={5}
-              id="plant-description"
-              label="plant description"
+              id="description"
+              label="Plant description"
             />
           </FormControl>
 
           <FormControl fullWidth variant="outlined">
-            <InputLabel id="select-category">Category</InputLabel>
+            <InputLabel id="categoryId">Category</InputLabel>
             <Select
-              labelId="select-category"
-              id="category"
-              value={""}
+              labelId="categoryId"
+              id="categoryId"
+              value={plant.categoryId}
               label="Category"
-              onChange={() => {}}
+              name="categoryId"
+              onChange={handleInputChange}
             >
               {categories.map((category) => (
                 <MenuItem key={category.id} value={category.id}>
@@ -76,14 +94,14 @@ export default function CreatePlant({ categories }) {
               ))}
             </Select>
           </FormControl>
-          <UploadImages onAddImages={() => {}} multiple />
+          <UploadImages onAddImages={handleAddImageUrls} multiple />
           <LoadingButton
             type="submit"
-            loading={false}
+            loading={creating}
             variant="contained"
             size="large"
           >
-            Create
+            Create Plant
           </LoadingButton>
         </Stack>
       </Paper>
