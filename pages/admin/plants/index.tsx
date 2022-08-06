@@ -21,8 +21,9 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
 import prisma from "../../../lib/prisma";
+import EditPlantDialog from "../../../components/Plant/EditPlantDialog";
 
-export default function Plants({ plants }) {
+export default function Plants({ plants,categories }) {
   return (
     <Box>
       <TableContainer component={Paper}>
@@ -76,6 +77,7 @@ export default function Plants({ plants }) {
 
                 <TableCell align="center">
                   <Stack direction="row" spacing={1} justifyContent="center">
+                    <EditPlantDialog categories={categories} defaultPlant={plant} />
                     <IconButton
                       aria-label="delete"
                       color="error"
@@ -111,6 +113,13 @@ Plants.getLayout = function getLayout(page) {
 
 export async function getServerSideProps() {
   try {
+    const categories = await prisma.category.findMany({
+      select: {
+        id: true,
+        name: true,
+        images: true,
+      },
+    });
     const plants = await prisma.plant.findMany({
       include: {
         category: {
@@ -124,6 +133,7 @@ export async function getServerSideProps() {
     return {
       props: {
         plants: JSON.parse(JSON.stringify(plants)),
+        categories
       },
     };
   } catch (error) {

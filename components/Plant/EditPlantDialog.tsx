@@ -22,10 +22,13 @@ import UploadImages from "../UploadImages";
 import { LoadingButton } from "@mui/lab";
 import usePlants from "../../hooks/dashboard/usePlants";
 
-export default function EditPlantDialog(
-  defaultPlant: Plant,
-  categories: Category[]
-) {
+interface Props {
+  defaultPlant: Plant;
+  categories: Category[];
+}
+export default function EditPlantDialog({ defaultPlant, categories }: Props) {
+  console.log(defaultPlant);
+  console.log(categories);
   const { plant, handleAddImageUrls, handleInputChange, editing, editPlant } =
     usePlants(defaultPlant);
   const [open, setOpen] = useState(false);
@@ -62,6 +65,7 @@ export default function EditPlantDialog(
             component={"form"}
             method="post"
             onSubmit={handleEditCategory}
+            mt={2}
           >
             <FormControl fullWidth variant="outlined">
               <InputLabel htmlFor="name">Plant name</InputLabel>
@@ -121,7 +125,11 @@ export default function EditPlantDialog(
                 ))}
               </Select>
             </FormControl>
-            <UploadImages onAddImages={handleAddImageUrls} multiple />
+            <UploadImages
+              onAddImages={handleAddImageUrls}
+              multiple
+              defaultImages={plant.images}
+            />
             <LoadingButton
               type="submit"
               loading={editing}
