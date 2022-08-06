@@ -10,7 +10,7 @@ interface DefaultValue {
   price: number;
   categoryId: string;
 }
-export default function usePlants(defaultValue: DefaultValue) {
+export default function usePlants(defaultValue?: DefaultValue) {
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const [creating, setCreating] = useState(false);
