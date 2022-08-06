@@ -88,7 +88,7 @@ export default function usePlants(defaultValue: DefaultValue) {
   const editPlant = async () => {
     setEditing(true);
     try {
-      const res = await fetch("/api/plant", {
+      const res = await fetch("/api/plants", {
         body: JSON.stringify(plant),
         method: "put",
       });

@@ -27,8 +27,6 @@ interface Props {
   categories: Category[];
 }
 export default function EditPlantDialog({ defaultPlant, categories }: Props) {
-  console.log(defaultPlant);
-  console.log(categories);
   const { plant, handleAddImageUrls, handleInputChange, editing, editPlant } =
     usePlants(defaultPlant);
   const [open, setOpen] = useState(false);
