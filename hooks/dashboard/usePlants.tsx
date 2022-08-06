@@ -34,8 +34,6 @@ export default function usePlants(defaultValue: DefaultValue) {
   const createPlant = async (e: FormEvent) => {
     e.preventDefault();
     setCreating(true);
-    console.log(plant)
-    return
     try {
       const res = await fetch("/api/plants", {
         body: JSON.stringify(plant),
