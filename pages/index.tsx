@@ -17,13 +17,14 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import Link from "next/link";
 import AppLayout from "../layouts/AppLayout";
 import prisma from "../lib/prisma";
-import { Category } from "@prisma/client";
+import { Category, Plant } from "@prisma/client";
 import CategoryItem from "../components/Category/CategoryItem";
 
 interface Props {
   categories: Category[];
+  plants: Plant[];
 }
-export default function Home({ categories }: Props) {
+export default function Home({ categories, plants }: Props) {
   return (
     <Box>
       {/* categories start  */}
@@ -38,23 +39,23 @@ export default function Home({ categories }: Props) {
       {/* plants start  */}
 
       <Grid container spacing={4} mt={4}>
-        {[...new Array(10)].map((plant) => (
+        {plants.map((plant) => (
           <Grid item md={3}>
             <Card sx={{ maxWidth: 345 }}>
-              <Link href={"/123"} passHref>
+              <Link href={plant.id} passHref>
                 <CardActionArea>
                   <CardMedia
                     component="img"
-                    image="https://cdn.shopify.com/s/files/1/0047/9730/0847/products/nurserylive-magical-aloe-vera-plant_c3575d29-9805-40e8-88b5-472cc9dca88f.jpg?v=1634223557"
-                    alt="green iguana"
+                    image={(plant.images[0] as { url: string }).url}
+                    alt={plant.name}
                   />
                   <CardContent>
                     <Stack direction={"row"} spacing={1} alignItems="center">
                       <CurrencyRupeeIcon fontSize="medium" />
-                      <Typography variant="h5">399</Typography>
+                      <Typography variant="h5">{plant.price}</Typography>
                     </Stack>
                     <Typography variant="subtitle1">
-                      Peace Lily, Spathiphyllum - Plant
+                     {plant.name}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
@@ -96,9 +97,11 @@ export default function Home({ categories }: Props) {
 export async function getServerSideProps() {
   try {
     const categories = await prisma.category.findMany();
+    const plants = await prisma.plant.findMany();
     return {
       props: {
         categories: JSON.parse(JSON.stringify(categories)),
+        plants: JSON.parse(JSON.stringify(plants)),
       },
     };
   } catch (error) {
