@@ -2,30 +2,46 @@ import { Avatar, Grid, Paper, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import AdminLayout from "../../layouts/AdminLayout";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+import YardOutlinedIcon from "@mui/icons-material/YardOutlined";
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import CategoryGraph from "../../components/CategoryGraph";
 import OrdersGraph from "../../components/OrdersGraph";
-export default function AdminHome() {
+import prisma from "../../lib/prisma";
+import CountCard from "../../components/Admin/CountCard";
+export default function AdminHome({ plantsCount, categoriesCount }) {
   return (
     <Box>
-      {/* countings */}
+      {/* counts */}
       <Grid container spacing={4}>
-        {[...new Array(4)].map((item) => (
-          <Grid item md={3}>
-            <Paper sx={{ padding: 2 }}>
-              <Stack direction={"row"} spacing={2} alignItems="center">
-                <Avatar
-                  sx={{ bgcolor: (theme) => theme.palette.success.light }}
-                >
-                  <PeopleAltOutlinedIcon />
-                </Avatar>
-                <Stack>
-                  <Typography variant="body1">Users</Typography>
-                  <Typography variant="h6">459</Typography>
-                </Stack>
-              </Stack>
-            </Paper>
-          </Grid>
-        ))}
+        <Grid item md={3}>
+          <CountCard
+            icon={<PeopleAltOutlinedIcon />}
+            title="Customers"
+            count={4}
+          />
+        </Grid>
+        <Grid item md={3}>
+          <CountCard
+            icon={<CategoryOutlinedIcon />}
+            title="Categories"
+            count={categoriesCount}
+          />
+        </Grid>
+        <Grid item md={3}>
+          <CountCard
+            icon={<YardOutlinedIcon />}
+            title="Plants"
+            count={plantsCount}
+          />
+        </Grid>
+        <Grid item md={3}>
+          <CountCard
+            icon={<ShoppingBagOutlinedIcon />}
+            title="Orders"
+            count={4}
+          />
+        </Grid>
       </Grid>
 
       <Grid container spacing={4} mt={4}>
@@ -45,3 +61,21 @@ AdminHome.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;
 };
 
+export async function getServerSideProps() {
+  try {
+    const plantsCount = await prisma.plant.count();
+    const categoriesCount = await prisma.category.count();
+
+    return {
+      props: {
+        plantsCount,
+        categoriesCount,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {},
+    };
+  }
+}
