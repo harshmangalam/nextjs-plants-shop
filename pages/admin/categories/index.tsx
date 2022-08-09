@@ -64,7 +64,7 @@ export default function Categories({ categories }) {
                 <TableCell align="center">
                   {new Date(category.updatedAt).toDateString()}
                 </TableCell>
-                <TableCell align="center">0</TableCell>
+                <TableCell align="center">{category._count?.plants}</TableCell>
                 <TableCell align="center">
                   <Stack direction="row" spacing={1} justifyContent="center">
                     <EditCategoryDialog {...category} />
@@ -103,7 +103,15 @@ Categories.getLayout = function getLayout(page) {
 
 export async function getServerSideProps() {
   try {
-    const categories = await prisma.category.findMany({});
+    const categories = await prisma.category.findMany({
+      include: {
+        _count: {
+          select: {
+            plants: true,
+          },
+        },
+      },
+    });
     return {
       props: {
         categories: JSON.parse(JSON.stringify(categories)),
