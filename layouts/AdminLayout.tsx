@@ -12,6 +12,8 @@ import {
   Tooltip,
   Typography,
   Container,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -25,6 +27,8 @@ import Link from "next/link";
 
 const drawerWidth = 300;
 export default function AdminLayout({ children }) {
+  const theme = useTheme();
+  const smallDevice = useMediaQuery(theme.breakpoints.down("md"));
   const [openDrawer, setOpenDrawer] = useState(true);
   return (
     <Box>
@@ -56,9 +60,10 @@ export default function AdminLayout({ children }) {
       {/* drawer start  */}
 
       <Drawer
-        variant="persistent"
+        variant={smallDevice ? "temporary" : "persistent"}
         anchor="left"
         open={openDrawer}
+        onClose={() => setOpenDrawer(false)}
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -83,7 +88,7 @@ export default function AdminLayout({ children }) {
         </List>
       </Drawer>
       {/* drawer end  */}
-      <Box ml={openDrawer ? `${drawerWidth}px` : 0} my={12}>
+      <Box ml={openDrawer && !smallDevice ? `${drawerWidth}px` : 0} my={12}>
         <Container>{children}</Container>
       </Box>
     </Box>
