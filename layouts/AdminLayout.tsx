@@ -47,7 +47,7 @@ export default function AdminLayout({ children }) {
             </IconButton>
           </Tooltip>
           <Typography variant="h6" noWrap component="div">
-            Clipped drawer
+            Admin Panel
           </Typography>
         </Toolbar>
       </AppBar>
