@@ -11,7 +11,7 @@ import {
   Toolbar,
   Tooltip,
   Typography,
-  Container
+  Container,
 } from "@mui/material";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -20,9 +20,8 @@ import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import YardOutlinedIcon from "@mui/icons-material/YardOutlined";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
-import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
+import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import Link from "next/link";
-
 
 const drawerWidth = 300;
 export default function AdminLayout({ children }) {
@@ -72,7 +71,7 @@ export default function AdminLayout({ children }) {
         <Toolbar />
         <List>
           {menus.map((menu) => (
-            <Link href={menu.href} passHref>
+            <Link key={menu.name} href={menu.href} passHref>
               <ListItem key={menu.name} disablePadding>
                 <ListItemButton>
                   <ListItemIcon>{menu.icon}</ListItemIcon>
@@ -117,5 +116,4 @@ const menus = [
     href: "/admin/orders",
     icon: <LocalMallOutlinedIcon />,
   },
-  
 ];
