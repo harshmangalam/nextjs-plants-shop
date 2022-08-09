@@ -49,7 +49,6 @@ export default function Create() {
               value={category.description}
               onChange={handleInputChange}
               name="description"
-              maxRows={5}
               rows={5}
               id="category-description"
               label="Category description"
